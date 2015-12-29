@@ -1,0 +1,41 @@
+---
+
+# Major Zabbix version (used for Zabbix YUM repo)
+zabbix_major_version: 2.4
+
+# Zabbix YUM repo URL
+zabbix_yumrepo_url: http://repo.zabbix.com/zabbix/{{ zabbix_major_version }}/rhel/{{ ansible_distribution_major_version }}/{{ ansible_userspace_architecture }}/
+
+# Path to the zabix_server.conf file
+zabbix_agent_config_file: /etc/zabbix/zabbix_agentd.conf
+
+# Package to be installed (exact version can be specified here)
+zabbix_agent_pkg: zabbix-agent
+
+# Config params
+zabbix_agent_config_pidfile: /var/run/zabbix/zabbix_agentd.pid
+zabbix_agent_config_logfile: /var/log/zabbix/zabbix_agentd.log
+zabbix_agent_config_logfilesize: 0
+zabbix_agent_config_debuglevel: 3
+zabbix_agent_config_server: 127.0.0.1
+zabbix_agent_config_hostname: "{{ inventory_hostname_short }}"
+
+# Default options
+zabbix_agent_config__default:
+  PidFile: "{{ zabbix_agent_config_pidfile }}"
+  LogFile: "{{ zabbix_agent_config_logfile }}"
+  LogFileSize: "{{ zabbix_agent_config_logfilesize }}"
+  DebugLevel: "{{ zabbix_agent_config_debuglevel }}"
+  Server: "{{ zabbix_agent_config_server }}"
+  Hostname: "{{ zabbix_agent_config_hostname }}"
+
+# Custom options
+zabbix_agent_config__custom: {}
+
+zabbix_agent_config__tmp: {}
+
+# Main Zabbix web config
+zabbix_agent_config: "{{
+  zabbix_agent_config__tmp.update(zabbix_agent_config__default) }}{{
+  zabbix_agent_config__tmp.update(zabbix_agent_config__custom) }}{{
+  zabbix_agent_config__tmp }}"

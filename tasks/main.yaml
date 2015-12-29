@@ -1,0 +1,44 @@
+---
+
+- name: Add Zabbix YUM repo
+  yumrepo:
+    name: zabbix
+    description: Official Zabbix {{ zabbix_major_version }} YUM repo
+    baseurl: "{{ zabbix_yumrepo_url }}"
+    gpgcheck: no
+  tags:
+    - zabbix_server_pkg
+
+- name: Install Zabbix agent
+  yum:
+    name: "{{ zabbix_agent_pkg }}"
+    state: present
+  notify:
+    - Restart Zabbix agent
+  tags:
+    - zabbix_agent_pkg
+
+- name: Configure Zabbix agent
+  template:
+    src: zabbix_agent.conf.j2
+    dest: "{{ zabbix_agent_config_file }}"
+  notify:
+    - Restart Zabbix agent
+  tags:
+    - zabbix_agent_config
+
+- name: Make sure the Zabbix agent service is enabled
+  service:
+    name: zabbix-agent
+    enabled: yes
+  tags:
+    - zabbix_agent_config
+
+- name: Make sure the Zabbix agent service is running
+  service:
+    name: zabbix-agent
+    state: started
+  register: zabbix_agent_service_started
+  tags:
+    - zabbix_agent_config
+    - zabbix_agent_pkg
