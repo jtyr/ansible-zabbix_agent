@@ -3,7 +3,7 @@ zabbix_agent
 
 Ansible role which helps to install and configure Zabbix agent.
 
-The configuraton of the role is done in such way that it should not be
+The configuration of the role is done in such way that it should not be
 necessary to change the role for any kind of configuration. All can be
 done either by changing role parameters or by declaring completely new
 configuration as a variable. That makes this role absolutely
@@ -55,16 +55,15 @@ Usage
 ```
 
 This role requires [Config
-Encoders](https://github.com/jtyr/ansible/blob/jtyr-config_encoders/lib/ansible/plugins/filter/config_encoders.py)
-which must be configured in the `ansible.cfg` file like this:
+Encoders](https://github.com/jtyr/ansible/blob/jtyr-config_encoders/lib/ansible/plugins/filter/config_encoders.py).
+Download the file and put it into the `filter_plugins` directory in the root of
+your playbook:
 
 ```
-[defaults]
-
-filter_plugins = ./plugins/filter/
+$ mkdir ./filter_plugins
+$ cd ./filter_plugins
+$ curl -O https://github.com/jtyr/ansible/blob/jtyr-config_encoders/lib/ansible/plugins/filter/config_encoders.py
 ```
-
-Where the `./plugins/filter/` containes the `config_encoders.py` file.
 
 
 Role variables
@@ -75,7 +74,7 @@ Role variables
 zabbix_major_version: 2.4
 
 # Zabbix YUM repo URL
-zabbix_yumrepo_url: http://repo.zabbix.com/zabbix/{{ zabbix_major_version }}/rhel/{{ ansible_distribution_major_version }}/{{ ansible_userspace_architecture }}/
+zabbix_yumrepo_url: http://repo.zabbix.com/zabbix/{{ zabbix_major_version }}/rhel/{{ ansible_distribution_major_version }}/$basearch/
 
 # Path to the zabix_server.conf file
 zabbix_agent_config_file: /etc/zabbix/zabbix_agentd.conf
