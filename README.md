@@ -65,6 +65,9 @@ zabbix_major_version: 2.4
 # Zabbix YUM repo URL
 zabbix_yumrepo_url: http://repo.zabbix.com/zabbix/{{ zabbix_major_version }}/rhel/{{ ansible_distribution_major_version }}/$basearch/
 
+# Additional Zabbix YUM repo params
+zabbix_yumrepo_params: {}
+
 # Path to the zabix_server.conf file
 zabbix_agent_config_file: /etc/zabbix/zabbix_agentd.conf
 

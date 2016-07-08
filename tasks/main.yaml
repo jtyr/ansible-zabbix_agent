@@ -11,11 +11,12 @@
     description: Official Zabbix {{ zabbix_major_version }} YUM repo
     baseurl: "{{ zabbix_yumrepo_url }}"
     gpgcheck: no
+    params: "{{ zabbix_yumrepo_params }}"
   tags:
     - zabbix_server_pkg
 
 - name: Install Zabbix agent
-  yum:
+  package:
     name: "{{ zabbix_agent_pkg }}"
     state: present
   notify:
