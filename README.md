@@ -108,8 +108,8 @@ Dependencies
 ------------
 
 - [`config_encoder_filters`](https://github.com/jtyr/ansible-config_encoder_filters)
-- [`zabbix-server`](https://github.com/jtyr/ansible-zabbix_server) (optional)
-- [`zabbix-web`](https://github.com/jtyr/ansible-zabbix_web) (optional)
+- [`zabbix_server`](https://github.com/jtyr/ansible-zabbix_server) (optional)
+- [`zabbix_web`](https://github.com/jtyr/ansible-zabbix_web) (optional)
 
 
 License
