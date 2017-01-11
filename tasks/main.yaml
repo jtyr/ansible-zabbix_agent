@@ -18,7 +18,6 @@
 - name: Install Zabbix agent
   package:
     name: "{{ zabbix_agent_pkg }}"
-    state: present
   notify:
     - Restart Zabbix agent
   tags:
