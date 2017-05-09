@@ -16,15 +16,13 @@ Usage
 -----
 
 ```
-# Default usage with no configuration changes
-- name: Example 1
+- name: Default usage with no configuration changes
   hosts: machine1
   roles:
     - zabbix_agent
 
-# Example of how to change the default settings
-- name: Example 2
-  hosts: machine1
+- name: Example of how to change the default settings
+  hosts: machine2
   vars:
     # Change the debug level
     zabbix_agent_config_debuglevel: 4
@@ -35,9 +33,8 @@ Usage
   roles:
     - zabbix_agent
 
-# Example of how to add custom settings
-- name: Example 3
-  hosts: machine1
+- name: Example of how to add custom settings
+  hosts: machine3
   vars:
     # Define some host metadata
     zabbix_agent_config_hostmetadata:
@@ -60,13 +57,13 @@ Role variables
 
 ```
 # Major Zabbix version (used for Zabbix YUM repo)
-zabbix_major_version: 2.4
+zabbix_agent_major_version: "{{ zabbix_major_version | default(2.4) }}"
 
 # Zabbix YUM repo URL
-zabbix_yumrepo_url: http://repo.zabbix.com/zabbix/{{ zabbix_major_version }}/rhel/{{ ansible_distribution_major_version }}/$basearch/
+zabbix_agent_yumrepo_url: "{{ zabbix_yumrepo_url | default('http://repo.zabbix.com/zabbix/' ~ zabbix_agent_major_version ~ '/rhel/' ~ ansible_distribution_major_version ~ '/$basearch/') }}"
 
 # Additional Zabbix YUM repo params
-zabbix_yumrepo_params: {}
+zabbix_agent_yumrepo_params: "{{ zabbix_yumrepo_params | default({}) }}"
 
 # Path to the zabix_server.conf file
 zabbix_agent_config_file: /etc/zabbix/zabbix_agentd.conf
@@ -108,6 +105,7 @@ Dependencies
 ------------
 
 - [`config_encoder_filters`](https://github.com/jtyr/ansible-config_encoder_filters)
+- [`zabbix_proxy`](https://github.com/jtyr/ansible-zabbix_proxy) (optional)
 - [`zabbix_server`](https://github.com/jtyr/ansible-zabbix_server) (optional)
 - [`zabbix_web`](https://github.com/jtyr/ansible-zabbix_web) (optional)
 

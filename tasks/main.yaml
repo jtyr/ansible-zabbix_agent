@@ -8,10 +8,10 @@
 - name: Add Zabbix YUM repo
   yum_repository:
     name: zabbix
-    description: Official Zabbix {{ zabbix_major_version }} YUM repo
-    baseurl: "{{ zabbix_yumrepo_url }}"
+    description: Official Zabbix {{ zabbix_agent_major_version }} YUM repo
+    baseurl: "{{ zabbix_agent_yumrepo_url }}"
     gpgcheck: no
-    params: "{{ zabbix_yumrepo_params }}"
+    params: "{{ zabbix_agent_yumrepo_params }}"
   tags:
     - zabbix_server_pkg
 
